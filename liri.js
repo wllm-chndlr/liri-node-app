@@ -36,35 +36,24 @@ else if (process.argv[2] === "spotify-this-song") {
       return console.log('Error occurred: ' + err);
     }
    
-  // console.log(data); 
-  console.log(data.tracks.items[0].artists);
-  console.log(data.tracks.items[0].name);
-  console.log(data.tracks.items[0].album.name);  
+    else if (song) {
+      console.log("Artist: " + data.tracks.items[0].artists[0].name);
+      console.log("Track: " + data.tracks.items[0].name);
+      console.log("Album: " + data.tracks.items[0].album.name);  
+      console.log("Preview: " + data.tracks.items[0].preview_url);
+    }
+
+    // else {
+    //   console.log("Artist: Ace of Base");
+    //   // console.log("Track: " + data.tracks.items[0].name);
+    //   // console.log("Album: " + data.tracks.items[0].album.name);  
+    //   // console.log("Preview: " + data.tracks.items[0].preview_url);
+    // }
+
   });
 
 }
 
-//   var refresh = require('spotify-refresh')
-  
-//   refresh(refreshToken, clientID, clientSecret, function (err, res, body) { 
-//     if (err) return
-//     body = json.parse(body)
-//     console.log(JSON.stringify(body)  
-//   })
-
-//   var songName = process.argv[3];
-  
-//   spotify.search({ type: 'track', query: songName }, function(err, data) {
-//     if ( err ) {
-//         console.log('Error occurred: ' + err);
-//         return;
-//     }
-    
-//     else {console.log(data)}
-
-//  });
-
-// }
 
 // else if (process.argv[2] === "movie-this") {
    
@@ -76,12 +65,4 @@ else if (process.argv[2] === "spotify-this-song") {
 
 // else {
 //    console.log("Unrecognized command");
-// }
-
-
-
-// for (var key in bandList) {
-//    if (key === genre || genre === undefined) {
-//       console.log("A " + key + " band is " + bandList[key] + ".");
-//    }
 // }
