@@ -1,6 +1,6 @@
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
-var Request = require('request');
+var request = require('request');
 var llaves = require("./keys.js");
 
 var client = new Twitter({
@@ -58,16 +58,19 @@ else if (process.argv[2] === "spotify-this-song") {
 
 else if (process.argv[2] === "movie-this") {
   var movieName = process.argv[3];
-  var queryURL = "http://www.ombdapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
-  console.log(queryURL);
+  var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
+  // console.log(queryURL);
 
-  Request(queryURL, function(error, response, body) {
+  request(queryURL, function(error, response, body) {
     if (!error && response.statusCode === 200) {
-      console.log("Release Year: " + JSON.parse(body));
+      // console.log(response);
+      console.log("Title: " + JSON.parse(body).Title);      
+      console.log("Release Year: " + JSON.parse(body).Year);
     }
   })
 
 }
+
 
 
 
