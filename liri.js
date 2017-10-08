@@ -26,40 +26,60 @@ if (process.argv[2] === "my-tweets") {
 
 else if (process.argv[2] === "spotify-this-song") {
 
-  var song = "";
+  if (process.argv[3]){
 
-  for (var n = 3; n < process.argv.length; n++){
-    song += " " + process.argv[n];
-  };
+    var song = "";
 
-  var spotify = new Spotify({
-    id: llaves.spotifyKeys.client_id,
-    secret: llaves.spotifyKeys.client_secret
-  });
-   
-  spotify.search({ type: 'track', query: song }, function(error, data) {
-    if (error) {
-      return console.log('Error occurred: ' + error);
-    }
-   
-    else if (song) {
-      console.log("Artist: " + data.tracks.items[0].artists[0].name);
-      console.log("Track: " + data.tracks.items[0].name);
-      console.log("Album: " + data.tracks.items[0].album.name);  
-      console.log("Preview: " + data.tracks.items[0].preview_url);
-    }
+    for (var n = 3; n < process.argv.length; n++){
+      song += " " + process.argv[n];
+    };
 
-    // else {
-    //   console.log("Artist: Ace of Base");
-    //   // console.log("Track: " + data.tracks.items[0].name);
-    //   // console.log("Album: " + data.tracks.items[0].album.name);  
-    //   // console.log("Preview: " + data.tracks.items[0].preview_url);
-    // }
+    var spotify = new Spotify({
+      id: llaves.spotifyKeys.client_id,
+      secret: llaves.spotifyKeys.client_secret
+    });
+    
+    spotify.search({ type: 'track', query: song }, function(error, data) {
+      if (error) {
+        return console.log('Error occurred: ' + error);
+      }
+    
+      else if (song) {
+        console.log("Artist: " + data.tracks.items[0].artists[0].name);
+        console.log("Track: " + data.tracks.items[0].name);
+        console.log("Album: " + data.tracks.items[0].album.name);  
+        console.log("Preview: " + data.tracks.items[0].preview_url);
+      }
 
-  });
+    });
+  }
+
+  else {
+  
+    var song = "'The Sign'";
+    
+    var spotify = new Spotify({
+      id: llaves.spotifyKeys.client_id,
+      secret: llaves.spotifyKeys.client_secret
+    });
+      
+    spotify.search({ type: 'track', query: song }, function(error, data) {
+      
+      if (error) {
+        return console.log('Error occurred: ' + error);
+      }
+      
+      else if (song) {
+        console.log("Artist: " + data.tracks.items[0].artists[0].name);
+        console.log("Track: " + data.tracks.items[0].name);
+        console.log("Album: " + data.tracks.items[0].album.name);  
+        console.log("Preview: " + data.tracks.items[0].preview_url);
+      }
+  
+    });
+  }
 
 }
-
 
 else if (process.argv[2] === "movie-this") {
 
