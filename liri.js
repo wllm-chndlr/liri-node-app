@@ -12,7 +12,9 @@ var client = new Twitter({
 });
 
 if (process.argv[2] === "my-tweets") {
-  var params = {screen_name: 'primoBandito'};
+  
+  var params = {screen_name: process.argv[3]};
+  // var params = {screen_name: 'primoBandito'};
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
     if (!error) {
       for (var i = 0; i < tweets.length; i++){
@@ -90,8 +92,8 @@ else if (process.argv[2] === "movie-this") {
       movieName += " " + process.argv[p];
     };
     
-    var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
-    // console.log(queryURL);
+    // var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
+    var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=" + llaves.omdbKey.api_key;
 
     request(queryURL, function(error, response, body) {
       if (!error && response.statusCode === 200) {
@@ -112,8 +114,7 @@ else if (process.argv[2] === "movie-this") {
 
     var movieName = "Mr. Nobody";
     
-    var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
-    // console.log(queryURL);
+    var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=" + llaves.omdbKey.api_key;
 
     request(queryURL, function(error, response, body) {
       if (!error && response.statusCode === 200) {
