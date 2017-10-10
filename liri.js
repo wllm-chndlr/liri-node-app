@@ -13,16 +13,38 @@ var client = new Twitter({
 
 if (process.argv[2] === "my-tweets") {
   
-  var params = {screen_name: process.argv[3]};
-  // var params = {screen_name: 'primoBandito'};
-  client.get('statuses/user_timeline', params, function(error, tweets, response) {
-    if (!error) {
-      for (var i = 0; i < tweets.length; i++){
-        console.log(tweets[i].text);
-        console.log(tweets[i].created_at);
+  if (process.argv[3]){
+    var params = {screen_name: process.argv[3]};
+    client.get('statuses/user_timeline', params, function(error, tweets, response) {
+      if (!error) {
+        for (var i = 0; i < tweets.length; i++){
+          console.log(tweets[i].text);
+          console.log(tweets[i].created_at);
+          fs.appendFile("twitterLog.txt", tweets[i].text + "\n" + tweets[i].created_at + "\n" + "\n", function(err) {
+            if (err) {
+              console.log(err);
+            }
+          });
+        }
       }
-    }
-  });
+    });
+  }
+  else {
+    var params = {screen_name: 'primoBandito'};
+    client.get('statuses/user_timeline', params, function(error, tweets, response) {
+      if (!error) {
+        for (var i = 0; i < tweets.length; i++){
+          console.log(tweets[i].text);
+          console.log(tweets[i].created_at);
+          fs.appendFile("twitterLog.txt", tweets[i].text + "\n" + tweets[i].created_at + "\n" + "\n", function(err) {
+            if (err) {
+              console.log(err);
+            }
+          });
+        }
+      }
+    });
+  }
 }
 
 else if (process.argv[2] === "spotify-this-song") {
@@ -44,14 +66,12 @@ else if (process.argv[2] === "spotify-this-song") {
       if (error) {
         return console.log('Error occurred: ' + error);
       }
-    
       else if (song) {
         console.log("Artist: " + data.tracks.items[0].artists[0].name);
         console.log("Track: " + data.tracks.items[0].name);
         console.log("Album: " + data.tracks.items[0].album.name);  
         console.log("Preview: " + data.tracks.items[0].preview_url);
       }
-
     });
   }
 
@@ -65,21 +85,17 @@ else if (process.argv[2] === "spotify-this-song") {
     });
       
     spotify.search({ type: 'track', query: song }, function(error, data) {
-      
       if (error) {
         return console.log('Error occurred: ' + error);
       }
-      
       else if (song) {
         console.log("Artist: " + data.tracks.items[0].artists[0].name);
         console.log("Track: " + data.tracks.items[0].name);
         console.log("Album: " + data.tracks.items[0].album.name);  
         console.log("Preview: " + data.tracks.items[0].preview_url);
       }
-  
     });
   }
-
 }
 
 else if (process.argv[2] === "movie-this") {
@@ -92,12 +108,10 @@ else if (process.argv[2] === "movie-this") {
       movieName += " " + process.argv[p];
     };
     
-    // var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
     var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=" + llaves.omdbKey.api_key;
 
     request(queryURL, function(error, response, body) {
       if (!error && response.statusCode === 200) {
-        // console.log(JSON.parse(body, null, 2));
         console.log("Title: " + JSON.parse(body).Title);      
         console.log("Release Year: " + JSON.parse(body).Year);
         console.log("IMDB Rating: " + JSON.parse(body).Ratings[0].Value);
@@ -118,7 +132,6 @@ else if (process.argv[2] === "movie-this") {
 
     request(queryURL, function(error, response, body) {
       if (!error && response.statusCode === 200) {
-        // console.log(JSON.parse(body, null, 2));
         console.log("Title: " + JSON.parse(body).Title);      
         console.log("Release Year: " + JSON.parse(body).Year);
         console.log("IMDB Rating: " + JSON.parse(body).Ratings[0].Value);
@@ -132,7 +145,6 @@ else if (process.argv[2] === "movie-this") {
   }
 }
 
-
 else if (process.argv[2] === "do-what-it-says") {
 
   fs.readFile("random.txt", "utf8", function(error, data) {
@@ -144,7 +156,6 @@ else if (process.argv[2] === "do-what-it-says") {
     }
 
     else {
-    
       var spotify = new Spotify({
         id: llaves.spotifyKeys.client_id,
         secret: llaves.spotifyKeys.client_secret
@@ -154,16 +165,13 @@ else if (process.argv[2] === "do-what-it-says") {
         if (error) {
           return console.log('Error occurred: ' + error);
         }
-      
         else {
           console.log("Artist: " + data.tracks.items[0].artists[0].name);
           console.log("Track: " + data.tracks.items[0].name);
           console.log("Album: " + data.tracks.items[0].album.name);  
           console.log("Preview: " + data.tracks.items[0].preview_url);
         }
-
       })
-    
     }
   })
 }
