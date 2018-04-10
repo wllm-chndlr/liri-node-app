@@ -15,8 +15,10 @@
 * **node liri.js do-what-it-says**
   * This will, for some reason, show you pertinent information about the Backstreet Boys' "I Want it That Way."
 
-Check out LIRI [here](https://github.com/wllm-chndlr/liri-node-app)!
+To try it out, clone or download this repo and then run 'npm install.' Then enter one of the commands above.
 
 If you were looking for Siri, click [here](https://www.apple.com/ios/siri/).
 
 ### Hope you enjoy!
+
+##### Created with Node.js by William Chandler, 2017
